@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+use App\Kernel;
+use Funkymed\TenantAwareBundle\Command\TenantAwareApplication;
+use Symfony\Component\Console\Input\ArgvInput;
+
+if (!is_dir(dirname(__DIR__).'/vendor')) {
+    throw new LogicException('Dependencies are missing. Try running "composer install".');
+}
+
+if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
+    throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');
+}
+
+require_once dirname(__DIR__).'/vendor/autoload_runtime.php';
+
+return function (array $context) {
+    $input = new ArgvInput();
+    $env = $input->getParameterOption(['--env', '-e'], getenv('APP_ENV') ?: 'dev');
+    $debug = getenv('APP_DEBUG') !== '0' && $env !== 'prod';
+
+    // Added support for tenant
+    $hostname = $input->getParameterOption('--tenant');
+
+    $kernel = new Kernel($env, $debug, $hostname);
+    $kernel->boot();
+
+    return new TenantAwareApplication($kernel);
+
+};
+

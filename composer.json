@@ -1,0 +1,44 @@
+{
+  "name": "funkymed/tenant-aware-bundle",
+  "type": "symfony-bundle",
+  "description": "A Symfony bundle for multi-tenant applications",
+  "keywords": [
+    "symfony",
+    "bundle",
+    "multi-tenant"
+  ],
+  "homepage": "https://github.com/funkymed/tenant-aware-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Cyril Pereira",
+      "email": "cyril.pereira@extreme-sensio.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "symfony/framework-bundle": "^6.0",
+    "symfony/console": "^6.0",
+    "doctrine/orm": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Funkymed\\TenantAwareBundle\\": ""
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Funkymed\\TenantAwareBundle\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "develop"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "test": "phpunit"
+  }
+}

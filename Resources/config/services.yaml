@@ -1,0 +1,13 @@
+parameters:
+    tenant_class: Funkymed\TenantAwareBundle\Entity\Tenant
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Funkymed\TenantAwareBundle\:
+        resource: '../../*'
+        exclude: '../../{Entity,Migrations,Tests,Kernel.php}'
+
+    
