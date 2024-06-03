@@ -212,13 +212,34 @@ Add in your processor what you want to repace
 namespace App\DependencyInjection\Compiler\Processor;
 
 // use this as an exemple to create your own replacement configuration
-class DummyProcessor extends ProcessorAbstract
+class MyProcessor extends ProcessorAbstract
 {
     public function process()
     {
-        // $tenant variable got all the information you need
+        // get current definition
+        $definition = $this->container->getDefinition('doctrine.dbal.default_connection');
+        $configuration = $definition->getArguments();
+
+        // update it from the tenant information
+        $configuration[0]["host"] = $this->tenant->getDatabaseHost();
+        $configuration[0]["dbname"] = $this->tenant->getDatabaseName();
+        $configuration[0]["user"] = $this->tenant->getDatabaseUser();
+        $configuration[0]["password"] = $this->tenant->getDatabasePassword();
+
+        // replace the current configuration everything is in the cache now
+        $definition->replaceArgument(0, $configuration[0]);
     }
 }
 ```
+
+Update the configuration
+
+```yaml
+tenant_aware:
+    processors:
+        - App\DependencyInjection\Compiler\Processor\MyProcessor
+```
+
+You can add all the processors you want.
 
 You also can replace the Entity Tenant to put the fields you need to manage your tenants.
