@@ -30,15 +30,5 @@
     "psr-4": {
       "Funkymed\\TenantAwareBundle\\Tests\\": "tests/"
     }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-main": "develop"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "test": "phpunit"
   }
 }
